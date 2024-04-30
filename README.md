@@ -1,0 +1,2 @@
+# smcc
+Small C Compiler
