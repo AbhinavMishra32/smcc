@@ -11,5 +11,8 @@ static int next(void){
     }
 
     c = fgetc(Infile);
+}
 
+static void putback(int c){
+    Putback = c;
 }
