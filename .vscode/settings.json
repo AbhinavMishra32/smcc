@@ -1,3 +1,10 @@
 {
-    "cmake.sourceDirectory": "F:/A/smcc/old"
+    "cmake.sourceDirectory": "F:/A/smcc/old",
+    "files.associations": {
+        "defs.h": "c",
+        "__locale": "c",
+        "cctype": "c",
+        "locale": "c",
+        "stdio.h": "c"
+    }
 }

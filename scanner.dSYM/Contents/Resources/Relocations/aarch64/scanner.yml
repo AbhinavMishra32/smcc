@@ -1,0 +1,21 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     scanner
+relocations:
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x10000389C, symSize: 0xD4 }
+  - { offsetInCU: 0x4D, offset: 0x4D, size: 0x8, addend: 0x0, symName: _tokstr, symObjAddr: 0x220, symBinAddr: 0x100008000, symSize: 0x0 }
+  - { offsetInCU: 0x73, offset: 0x73, size: 0x8, addend: 0x0, symName: _Line, symBinAddr: 0x100008030, symSize: 0x0 }
+  - { offsetInCU: 0x8F, offset: 0x8F, size: 0x8, addend: 0x0, symName: _Putback, symBinAddr: 0x100008034, symSize: 0x0 }
+  - { offsetInCU: 0xA4, offset: 0xA4, size: 0x8, addend: 0x0, symName: _Infile, symBinAddr: 0x100008028, symSize: 0x0 }
+  - { offsetInCU: 0x2A4, offset: 0x2A4, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x10000389C, symSize: 0xD4 }
+  - { offsetInCU: 0x2DA, offset: 0x2DA, size: 0x8, addend: 0x0, symName: _usage, symObjAddr: 0xD4, symBinAddr: 0x100003970, symSize: 0x3C }
+  - { offsetInCU: 0x2FE, offset: 0x2FE, size: 0x8, addend: 0x0, symName: _init, symObjAddr: 0x110, symBinAddr: 0x1000039AC, symSize: 0x24 }
+  - { offsetInCU: 0x313, offset: 0x313, size: 0x8, addend: 0x0, symName: _scanfile, symObjAddr: 0x134, symBinAddr: 0x1000039D0, symSize: 0x9C }
+  - { offsetInCU: 0x26, offset: 0x383, size: 0x8, addend: 0x0, symName: _scan, symObjAddr: 0x0, symBinAddr: 0x100003A6C, symSize: 0x11C }
+  - { offsetInCU: 0x48, offset: 0x3A5, size: 0x8, addend: 0x0, symName: _scan, symObjAddr: 0x0, symBinAddr: 0x100003A6C, symSize: 0x11C }
+  - { offsetInCU: 0x7E, offset: 0x3DB, size: 0x8, addend: 0x0, symName: _skip, symObjAddr: 0x1E0, symBinAddr: 0x100003C4C, symSize: 0xD8 }
+  - { offsetInCU: 0xA6, offset: 0x403, size: 0x8, addend: 0x0, symName: _scanint, symObjAddr: 0x2B8, symBinAddr: 0x100003D24, symSize: 0x78 }
+  - { offsetInCU: 0xEA, offset: 0x447, size: 0x8, addend: 0x0, symName: _next, symObjAddr: 0x330, symBinAddr: 0x100003D9C, symSize: 0x70 }
+  - { offsetInCU: 0x112, offset: 0x46F, size: 0x8, addend: 0x0, symName: _chrpos, symObjAddr: 0x3A0, symBinAddr: 0x100003E0C, symSize: 0x6C }
+  - { offsetInCU: 0x156, offset: 0x4B3, size: 0x8, addend: 0x0, symName: _putback, symObjAddr: 0x40C, symBinAddr: 0x100003E78, symSize: 0x20 }
+...
