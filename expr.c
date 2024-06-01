@@ -2,9 +2,11 @@
 #include "data.h"
 #include "decl.h"
 
+char *tokstr1[] = {"+", "-", "*", "/", "intlit"};
+
 static struct ASTnode *primary(void)
 {
-    struct ASTNode *n;
+    struct ASTnode *n;
 
     switch (Token.token)
     {
@@ -31,7 +33,7 @@ int arithop(int tok)
     case T_SLASH:
         return (A_DIVIDE);
     default:
-        fprintf(stderr, "unkown token in arithop() on line %d\n", Line);
+        fprintf(stderr, "unkown token in arithop() on line %d\n got token: %s", Line, tokstr1[tok]);
         exit(1);
     }
 }

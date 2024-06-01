@@ -2,10 +2,8 @@
 #include "defs.h"
 #include "decl.h"
 
-
 static int scanint(int c);
 static int chrpos(char *s, int c);
-
 
 static int next(void)
 {
@@ -38,28 +36,32 @@ static int skip(void)
     return c;
 }
 
-int scan(struct token *t){
+int scan(struct token *t)
+{
     int c;
 
     c = skip();
 
-    switch(c){
+    switch (c)
+    {
     case EOF:
+        t->token = T_EOF;
         return (0);
     case '+':
-        t -> token = T_PLUS;
+        t->token = T_PLUS;
         break;
     case '-':
-        t -> token = T_MINUS;
+        t->token = T_MINUS;
         break;
     case '*':
-        t -> token = T_STAR;
+        t->token = T_STAR;
         break;
     case '/':
-        t -> token = T_SLASH;
+        t->token = T_SLASH;
         break;
     default:
-        if(isdigit(c)){
+        if (isdigit(c))
+        {
             t->intvalue = scanint(c);
             t->token = T_INTLIT;
             break;
@@ -69,15 +71,15 @@ int scan(struct token *t){
     }
 
     return (1); // we found a token
-
 };
 
-
-static int scanint(int c){
+static int scanint(int c)
+{
     int k, val = 0;
 
-    while((k = chrpos("0123456789", c)) >=0){
-        val = val*10 +k;
+    while ((k = chrpos("0123456789", c)) >= 0)
+    {
+        val = val * 10 + k;
         c = next();
     }
 
@@ -85,9 +87,10 @@ static int scanint(int c){
     return val;
 }
 
-static int chrpos(char *s, int c){
+static int chrpos(char *s, int c)
+{
     char *p;
 
     p = strchr(s, c);
-    return (p ? p -s :-1);
+    return (p ? p - s : -1);
 }
