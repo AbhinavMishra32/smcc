@@ -55,6 +55,7 @@
         "xstring": "cpp",
         "xtr1common": "cpp",
         "xutility": "cpp",
-        "d2d1effectauthor_1.h": "c"
+        "d2d1effectauthor_1.h": "c",
+        "data.h": "c"
     }
 }
