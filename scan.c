@@ -17,6 +17,11 @@ static int next(void)
     }
 
     c = fgetc(Infile);
+
+    if ('\n' == c)
+        Line++;
+        
+    return c;
 }
 
 static void putback(int c)
