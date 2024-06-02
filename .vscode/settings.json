@@ -57,6 +57,7 @@
     "xutility": "cpp",
     "d2d1effectauthor_1.h": "c",
     "data.h": "c",
-    "*.rh": "c"
+    "*.rh": "c",
+    "decl.h": "c"
   }
 }

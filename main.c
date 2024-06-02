@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
     }
 
     scan(&Token);
-    n = binexpr();
+    n = binexpr(0);
     printf("%d\n", interpretAST(n));
     exit(0);
 }
