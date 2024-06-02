@@ -62,7 +62,7 @@ struct ASTnode *binexpr(int ptp)
     if (tokentype == T_EOF)
         return (left);
 
-    while (op_precendence(tokentype) > ptp)
+    while (op_precedence(tokentype) > ptp)
     {
         scan(&Token);
 
