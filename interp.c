@@ -9,10 +9,8 @@ int interpretAST(struct ASTnode *n)
 {
     int leftval, rightval;
 
-    if (n->left)
-        leftval = interpretAST(n->left);
-    if (n->right)
-        rightval = interpretAST(n->right);
+    if (n->left) leftval = interpretAST(n->left);
+    if (n->right) rightval = interpretAST(n->right);
 
     if (n->op == A_INTLIT)
         printf("int %d\n", n->intvalue);
@@ -34,5 +32,18 @@ int interpretAST(struct ASTnode *n)
     default:
         fprintf(stderr, "Unkown AST operator %d\n", n->op);
         exit(1);
+    }
+}
+
+
+
+int genAST(struct ASTnode *n){
+    int leftreg, rightreg;
+
+    if (n->left) leftreg = genAST(n->left);
+    if (n->right) rightreg = genAST(n->right);
+
+    switch(n->op){
+        case A_ADD: return (cgadd())
     }
 }
