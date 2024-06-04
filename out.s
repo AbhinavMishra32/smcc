@@ -2,38 +2,34 @@
 .LC0:
 	.string	"%d\n"
 printint:
-	pushq	%rbp
-	movq	%rsp, %rbp
-	subq	$16, %rsp
-	movl	%edi, -4(%rbp)
-	movl	-4(%rbp), %eax
-	movl	%eax, %esi
-	leaq	.LC0(%rip), %rdi
-	movl	$0, %eax
-	call	printf@PLT
-	nop
-	leave
-	ret
-
+	push	{r4, r5, r6, lr}
+	mov	r5, r0
+	ldr	r0, .L3
+	add	r1, sp, #12
+	mov	r2, r5
+	bl	printf
+	pop	{r4, r5, r6, pc}
+	.align	2
+.L3:
+	.word	%d
 	.globl	main
-	.type	main, @function
+	.type	main, %function
 main:
-	pushq	%rbp
-	movq	%rsp, %rbp
-	movq	$2, %r8
-	movq	$3, %r9
-	movq	$5, %r10
-	imulq	%r9, %r10
-	addq	%r8, %r10
-	movq	$8, %r8
-	movq	$3, %r9
-	movq	%r8, %rax
-	cqo
-	idivq	%r9
-	movq	%rax, %r8
-	subq	%r8, %r10
-	movq	%r10, %rdi
-	call	printint
-	movl	$0, %eax
-	popq	%rbp
-	ret
+	push	{r4, lr}
+	add	r4, sp, #0
+	mov r8, #2
+	mov r9, #3
+	mov r10, #5
+	mul r10, r10, r9
+	add r10, r10, r8
+	mov r8, #8
+	mov r9, #3
+	mov r8, r8
+	mov r9, r9
+	bl __aeabi_idiv
+	mov r8, r8
+	sub r10, r10, r8
+	mov r10, r0
+	bl printint
+	mov	r0, #0
+	pop	{r4, pc}
