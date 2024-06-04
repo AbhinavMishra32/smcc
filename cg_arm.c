@@ -26,12 +26,12 @@ static void free_register(int reg){
     freereg[reg]= 1;
 }
 
-void cgpreamble(){
-    freeall_registers();
-    fputs(
-    "\t.text\n"
-    ".LC0:\n"
-    "\t.string\t\"%d\\n\"\n"
+void cgpreamble() {
+  freeall_registers();
+  fputs(
+    "\t.text\n"  // Text section for code
+    ".LC0:\n"      // Label for string literal
+    "\t.asciz\t\"%d\\n\"\n"  // String literal with `.asciz` directive
     "printint:\n"
     "\tpush\t{r4, r5, r6, lr}\n"
     "\tmov	r5, r0\n"
@@ -42,13 +42,14 @@ void cgpreamble(){
     "\tpop	{r4, r5, r6, pc}\n"
     "\t.align	2\n"
     ".L3:\n"
-    "\t.word	%d\n"
+    // Option 1 (remove for standard %d format): ".word\t0"  ; Placeholder (remove if not needed)
+    // Option 2 (custom format - replace 100 with your format code) : ".word\t100" ; Custom format specifier (optional)
     "\t.globl	main\n"
     "\t.type	main, %function\n"
     "main:\n"
     "\tpush	{r4, lr}\n"
     "\tadd	r4, sp, #0\n",
-    Outfile);
+  Outfile);
 }
 
 void cgpostamble(){
@@ -75,11 +76,12 @@ int cgadd(int r1, int r2)
     return r2;
 }
 
-int cgmul(int r1, int r2)
-{
-    fprintf(Outfile, "\tmul %s, %s, %s\n", reglist[r2], reglist[r2], reglist[r1]);
-    free_register(r1);
-    return r2;
+int cgmul(int r1, int r2) {
+  // Use a different register for the destination (Rd)
+  int rd = alloc_register();
+  fprintf(Outfile, "\tmul %s, %s, %s\n", reglist[rd], reglist[r2], reglist[r1]);
+  free_register(r1);
+  return rd;
 }
 
 int cgsub(int r1, int r2)
