@@ -1,39 +1,38 @@
-	.text
+    .text
 .LC0:
-	.asciz	"%d\n"
+    .asciz  "%d\n"
 printint:
-	pushq	%rbp
-	movq	%rsp, %rbp
-	subq	$16, %rsp
-	movl	%edi, -4(%rbp)
-	movl	-4(%rbp), %eax
-	movl	%eax, %esi
-	leaq	.LC0(%rip), %rdi
-	movl	$0, %eax
-	call	printf@PLT
-	nop
-	leave
-	ret
+    STP X29, X30, [SP, #-16]!
+    MOV X29, SP
+    SUB SP, SP, #16
+    STR W0, [SP, #12]
+    ADR X0, .LC0
+    LDR X0, [X0]
+    ADD X1, SP, #12
+    MOV X2, X0
+    BL printf
+    LDP X29, X30, [SP], #16
+    RET
 
-	.globl	main
-	.type	main, @function
+    .globl main
 main:
-	pushq	%rbp
-	movq	%rsp, %rbp
-	movq	$2, %r8
-	movq	$3, %r9
-	movq	$5, %r10
-	imulq	%r9, %r10
-	addq	%r8, %r10
-	movq	$8, %r8
-	movq	$3, %r9
-	movq	%r8, %rax
-	cqo
-	idivq	%r9
-	movq	%rax, %r8
-	subq	%r8, %r10
-	movq	%r10, %rdi
-	call	printint
-	movl	$0, %eax
-	popq	%rbp
-	ret
+    STP X29, X30, [SP, #-16]!
+    MOV X29, SP
+    SUB SP, SP, #16
+    MOV W8, #2
+    MOV W9, #3
+    MOV W10, #5
+    MUL W11, W10, W9
+    ADD W11, W11, W8
+    MOV W8, #8
+    MOV W9, #3
+    MOV W0, W8
+    MOV W1, W9
+    BL __aeabi_idivmod
+    MOV W8, W0
+    SUB W11, W11, W8
+    MOV W0, W11
+    BL printint
+    MOV W0, #0
+    LDP X29, X30, [SP], #16
+    RET

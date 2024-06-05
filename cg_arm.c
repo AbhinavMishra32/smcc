@@ -16,6 +16,8 @@ static int alloc_register(void){
             return i;
         }
     }
+    fprintf(stderr, "Out of registers\n");
+    exit(1);
 }
 
 static void free_register(int reg){
