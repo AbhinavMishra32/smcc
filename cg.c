@@ -56,7 +56,6 @@ void cgpreamble()
         "\tret\n"
         "\n"
         "\t.globl\tmain\n"
-        "\t.type\tmain, @function\n"
         "main:\n"
         "\tpushl\t%ebp\n"
         "\tmovl\t%esp, %ebp\n",

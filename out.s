@@ -2,38 +2,37 @@
 .LC0:
 	.string	"%d\n"
 printint:
-	pushq	%rbp
-	movq	%rsp, %rbp
-	subq	$16, %rsp
-	movl	%edi, -4(%rbp)
-	movl	-4(%rbp), %eax
+	pushl	%ebp
+	movl	%esp, %ebp
+	subl	$16, %esp
+	movl	%edi, -4(%ebp)
+	movl	-4(%ebp), %eax
 	movl	%eax, %esi
-	leaq	.LC0(%rip), %rdi
+	leal	.LC0, %edi
 	movl	$0, %eax
-	call	printf@PLT
+	call	printf
 	nop
 	leave
 	ret
 
 	.globl	main
-	.type	main, @function
 main:
-	pushq	%rbp
-	movq	%rsp, %rbp
-	movq	$2, %r8
-	movq	$3, %r9
-	movq	$5, %r10
-	imulq	%r9, %r10
-	addq	%r8, %r10
-	movq	$8, %r8
-	movq	$3, %r9
-	movq	%r8, %rax
-	cqo
-	idivq	%r9
-	movq	%rax, %r8
-	subq	%r8, %r10
-	movq	%r10, %rdi
+	pushl	%ebp
+	movl	%esp, %ebp
+	movl	$2, %eax
+	movl	$3, %ebx
+	movl	$5, %ecx
+	imull	%ebx, %ecx
+	addl	%eax, %ecx
+	movl	$8, %eax
+	movl	$3, %ebx
+	movl	%eax, %eax
+	cltd
+	idivl	%ebx
+	movl	%eax, %eax
+	subl	%eax, %ecx
+	movl	%ecx, %edi
 	call	printint
 	movl	$0, %eax
-	popq	%rbp
+	popl	%ebp
 	ret
