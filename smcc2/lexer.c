@@ -1,45 +1,18 @@
-typedef enum
-{
-    TOKEN_INT,
-    TOKEN_RETURN,
-    TOKEN_IDENT,
-    TOKEN_NUMBER,
-    TOKEN_PLUS,
-    TOKEN_SEMICOLON,
-    TOKEN_LBRACE,
-    TOKEN_RBRACE,
-    TOKEN_EO
-} TokenType;
-
-typedef struct
-{
-    TokenType type;
-    char *text;
-} Token;
-
-Token next_token(const char *input, int *index);
-TokenType get_token(const char *input);
+#include "defs.h"
+#include "decl.h"
+#include <stdio.h>
 
 Token next_token(const char *input, int *index)
 {
-    int input_size = sizeof(input) / sizeof(input[0]);
-    for (int i = index; i < input_size; i++)
-    {
-    }
+    char c = input[*index];
+    printf("This is c: %c", c);
+
+    // while()
+    
+    // Token token = {TOKEN_EO, NULL};
+    // return token;
 }
 
-TokenType get_token(const char *input)
-{
-    TokenType token_type;
-    switch (*input)
-    {
-    case '{':
-        token_type = TOKEN_SEMICOLON;
-        break;
-    case '}':
-        token_type = TOKEN_SEMICOLON;
-        break;
-        case 
-            
-    }
-}
+// TokenType keyword_or_ident(char *word) {
+//     if
+// }
