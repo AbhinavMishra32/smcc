@@ -18,6 +18,9 @@ TARGET = $(BUILD_DIR)/smcc
 # Default target
 all: $(TARGET)
 
+debug: CFLAGS += -DDEBUG
+debug: $(TARGET)
+
 # Linking
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $^
