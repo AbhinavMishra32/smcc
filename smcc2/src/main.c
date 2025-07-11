@@ -1,9 +1,9 @@
 #include "decl.h"
 
 int main(){
-    int pos = 1;
-    char sentence[100] = "hello what is going on";
-    Token t = next_token(sentence, &pos);
+    int pos = 0;
+    char sentence[] = "int return 1235 asdfasdf { }";
+    Token t = token_list(sentence, &pos);
 
     return 0;
 }
