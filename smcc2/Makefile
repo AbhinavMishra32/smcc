@@ -13,7 +13,7 @@ SRCS = $(wildcard $(SRC_DIR)/*.c)
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRCS))
 
 # Executable name
-TARGET = $(BUILD_DIR)/main
+TARGET = $(BUILD_DIR)/smcc
 
 # Default target
 all: $(TARGET)
