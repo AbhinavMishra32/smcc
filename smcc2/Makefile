@@ -1,6 +1,27 @@
+# Detect operating system
+UNAME_S := $(shell uname -s 2>/dev/null || echo Windows)
+
 # Compiler and flags
 CC = gcc
 CFLAGS = -Wall -g -I./src
+
+# OS-specific settings
+ifeq ($(UNAME_S),Darwin)
+    # macOS
+    MKDIR = mkdir -p
+    RM = rm -rf
+    EXE_EXT = 
+else ifeq ($(UNAME_S),Linux)
+    # Linux
+    MKDIR = mkdir -p
+    RM = rm -rf
+    EXE_EXT = 
+else
+    # Windows (MinGW/MSYS2/Git Bash)
+    MKDIR = mkdir
+    RM = rmdir /s /q
+    EXE_EXT = .exe
+endif
 
 # Folders
 SRC_DIR = src
@@ -13,7 +34,7 @@ SRCS = $(wildcard $(SRC_DIR)/*.c)
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRCS))
 
 # Executable name
-TARGET = $(BUILD_DIR)/smcc
+TARGET = $(BUILD_DIR)/smcc$(EXE_EXT)
 
 # Default target
 all: $(TARGET)
@@ -27,9 +48,9 @@ $(TARGET): $(OBJS)
 
 # Compile each .c in src/ to .o in build/
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
-	@if not exist $(BUILD_DIR) mkdir $(BUILD_DIR)
+	@$(MKDIR) $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Clean build files
 clean:
-	@if exist $(BUILD_DIR) rmdir /s /q $(BUILD_DIR)
+	@$(RM) $(BUILD_DIR)
