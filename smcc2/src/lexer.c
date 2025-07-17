@@ -26,7 +26,7 @@ char* read_word(const char* input, int* index) {
 
     if (isalpha(c)){
         // isalnum for having numbers also in variable names
-        while ((isalnum(c) || c == '_') && i < 255) {
+        while ((isalnum(c) || c == '_')) {
             word[i] = c;
             (*index)++;
             c = input[*index];
@@ -35,7 +35,7 @@ char* read_word(const char* input, int* index) {
     }
     else if (isdigit(c)){
         // only keep going until there is number only
-        while(isdigit(c) && i<255){
+        while(isdigit(c)){
             word[i] = c;
             (*index)++;
             c = input[*index];
@@ -69,30 +69,30 @@ Token* token_list(const char* input, int* index)
     while(c != '\0'){
         char* word = read_word(input, index);
         Token token = get_token(word);
-        i++;
         tok_list[i] = token;
-        printf("Token.type: %s\n", token_array[token.type]);
+        i++;
+        printf("Type: %s || Word: '%s' || (%d)\n", token_array[token.type], word, *index);
         c = input[*index];
         if (isspace(c)){
             (*index)++;
-            continue;
+            c = input[*index];
         }
         if (c == '+') {
-            (*index)++;
             Token token = {TOKEN_PLUS, strdup("+")};
-            printf("Token.type: %s\n", token_array[token.type]);
+            printf("Type: %s || Word: '%s' || (%d)\n", token_array[token.type], word, *index);
+            (*index)++;
             tok_list[i] = token;
         }
         else if (c == '{'){
-            (*index)++;
             Token token = {TOKEN_LBRACE, strdup("{")};
-            printf("Token.type: %s\n", token_array[token.type]);
+            printf("Type: %s || Word: '%s' || (%d)\n", token_array[token.type], word, *index);
+            (*index)++;
             tok_list[i] = token;
         }
         else if (c == '}'){
-            (*index)++;
             Token token = {TOKEN_RBRACE, strdup("}")};
-            printf("Token.type: %s\n", token_array[token.type]);
+            printf("Type: %s || Word: '%s' || (%d)\n", token_array[token.type], word, *index);
+            (*index)++;
             tok_list[i] = token;
         }
         else {
