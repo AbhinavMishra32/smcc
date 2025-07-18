@@ -1,12 +1,28 @@
 #include <string>
 #include "defs.hh"
+#include "token.hh"
 
 class Lexer {
 public:
     Lexer(const std::string& input) : _input(input), _pos(0) {}
 
-    Token nextToken();
+    Token nextToken() {
+        skipWhitespace();
+
+        char c = _input[_pos];
+
+        if (std::isalpha(c) || c == '_'){
+            std::string word = readWord();
+            return getToken(word);
+        }
+    }
     Token peekToken();
+
+    void skipWhitespace(){
+        if (isspace(_input[_pos])){
+            _pos++;
+        }
+    }
 
 private:
     std::string _input;
@@ -34,5 +50,8 @@ private:
 
         return word;
     }
-    Token getToken(const std::string& word);
+
+    Token getToken(std::string& word){
+        if (word == "int") return Token(TokenType::Int, word);
+    }
 };

@@ -30,22 +30,16 @@ char* token_array[] = {
     "TOKEN_EO"
 };
 
-typedef struct
-{
-    TokenType type;
-    std::string text;
-} Token;
-
 typedef struct {
     const char* input;
     int pos;
     int line;
 } Lexer;
 
-typedef struct {
-    Lexer* lexer;
-    Token current;
-} Parser;
+// typedef struct {
+//     Lexer* lexer;
+//     Token current;
+// } Parser;
 
 typedef enum {
     AST_FUNCTION,
