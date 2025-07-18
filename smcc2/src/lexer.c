@@ -5,6 +5,9 @@
 #include <string.h>
 #include <stdlib.h>
 
+#define MAX_TOKENS 1024
+#define MAX_WORD_SIZE 256
+
 
 char* token_array[] = {
     "TOKEN_INT",
@@ -12,6 +15,7 @@ char* token_array[] = {
     "TOKEN_IDENT",
     "TOKEN_NUMBER",
     "TOKEN_PLUS",
+    "TOKEN_MINUS",
     "TOKEN_SEMICOLON",
     "TOKEN_LBRACE",
     "TOKEN_RBRACE",
@@ -21,7 +25,7 @@ char* token_array[] = {
 char* read_word(const char* input, int* index) {
     char c = input[*index];
 
-    char* word = malloc(256 * sizeof(char)); // this is in heap
+    char* word = malloc(MAX_WORD_SIZE * sizeof(char)); // this is in heap
     int i = 0;
 
     if (isalpha(c)){
@@ -61,50 +65,81 @@ void print_tokens(Token* token_list){
 
 Token* token_list(const char* input, int* index)
 {
-    Token* tok_list = (Token*)malloc(sizeof(Token) * 10);
+    Token* tok_list = (Token*)malloc(sizeof(Token) * MAX_TOKENS);
     char c = input[*index];
 
     int i = 0;
 
     while(c != '\0'){
-        char* word = read_word(input, index);
-        Token token = get_token(word);
-        tok_list[i] = token;
-        i++;
-        printf("Type: %s || Word: '%s' || (%d)\n", token_array[token.type], word, *index);
-        c = input[*index];
         if (isspace(c)){
             (*index)++;
             c = input[*index];
         }
-        if (c == '+') {
+        if (c == '\0') break;
+
+        if (isalpha(c) || isdigit(c) || c == '_') {
+            char *word = read_word(input, index);
+            // if blank word then dont process
+            if (strlen(word) > 0) {
+                Token token = get_token(word);
+                tok_list[i] = token;
+                // printf("Type: %s || Word: '%s' || (%d)\n", token_array[token.type], word, *index);
+                i++;
+            }
+        }
+        else if (c == '+')
+        {
             Token token = {TOKEN_PLUS, strdup("+")};
-            printf("Type: %s || Word: '%s' || (%d)\n", token_array[token.type], word, *index);
+            // printf("Type: %s || Word: '%s' || (%d)\n", token_array[token.type], "+", *index);
             (*index)++;
             tok_list[i] = token;
+            i++;
+        }
+        else if (c == '-')
+        {
+            Token token = {TOKEN_MINUS, strdup("-")};
+            // printf("Type: %s || Word: '%s' || (%d)\n", token_array[token.type], "+", *index);
+            (*index)++;
+            tok_list[i] = token;
+            i++;
         }
         else if (c == '{'){
             Token token = {TOKEN_LBRACE, strdup("{")};
-            printf("Type: %s || Word: '%s' || (%d)\n", token_array[token.type], word, *index);
+            // printf("Type: %s || Word: '%s' || (%d)\n", token_array[token.type], "{", *index);
             (*index)++;
             tok_list[i] = token;
+            i++;
         }
         else if (c == '}'){
             Token token = {TOKEN_RBRACE, strdup("}")};
-            printf("Type: %s || Word: '%s' || (%d)\n", token_array[token.type], word, *index);
+            // printf("Type: %s || Word: '%s' || (%d)\n", token_array[token.type], "}", *index);
             (*index)++;
             tok_list[i] = token;
+            i++;
+        }
+        else if (c == ';') {
+            Token token = {TOKEN_SEMICOLON, strdup(";")};
+            // printf("Type: %s || Word: '%s' || (%d)\n", token_array[token.type], ";", *index);
+            (*index)++;
+            tok_list[i] = token;
+            i++;
         }
         else {
+            // Skip unkown characters
             (*index)++;
         }
+
+        c = input[*index];
     }
+
+    Token end_token = {TOKEN_EO, NULL};
+    tok_list[i] = end_token;
+
     return tok_list;
 }
 
 Token get_token(char* word){
     
-    // printf("word: %s ", word);
     Token token;
     token.text = NULL;
 

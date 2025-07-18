@@ -8,6 +8,7 @@ typedef enum
     TOKEN_IDENT,
     TOKEN_NUMBER,
     TOKEN_PLUS,
+    TOKEN_MINUS,
     TOKEN_SEMICOLON,
     TOKEN_LBRACE,
     TOKEN_RBRACE,
