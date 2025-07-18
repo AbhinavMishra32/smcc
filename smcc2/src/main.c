@@ -1,4 +1,4 @@
-#include "decl.h"
+#include "decl.hh"
 #include <stdlib.h>
 
 int main(){

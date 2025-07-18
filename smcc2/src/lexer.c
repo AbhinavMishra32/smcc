@@ -1,5 +1,5 @@
-#include "defs.h"
-#include "decl.h"
+#include "defs.hh"
+#include "decl.hh"
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
@@ -8,19 +8,6 @@
 #define MAX_TOKENS 1024
 #define MAX_WORD_SIZE 256
 
-
-char* token_array[] = {
-    "TOKEN_INT",
-    "TOKEN_RETURN",
-    "TOKEN_IDENT",
-    "TOKEN_NUMBER",
-    "TOKEN_PLUS",
-    "TOKEN_MINUS",
-    "TOKEN_SEMICOLON",
-    "TOKEN_LBRACE",
-    "TOKEN_RBRACE",
-    "TOKEN_EO"
-};
 
 char* read_word(const char* input, int* index) {
     char c = input[*index];
