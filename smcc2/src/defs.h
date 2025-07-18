@@ -27,4 +27,9 @@ typedef struct {
     int line;
 } Lexer;
 
+typedef struct {
+    Lexer* lexer;
+    Token current;
+} Parser;
+
 #endif
