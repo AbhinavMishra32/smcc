@@ -9,10 +9,13 @@ enum class TokenType {
     Number,
     Plus,
     Minus,
+    LParan,
+    RParan,
     LBrace,
     RBrace,
     Semicolon,
-    EoF
+    EoF,
+    Unknown
 };
 
 class Token {
@@ -21,6 +24,14 @@ private:
     std::string _text;
 
 public:
+    TokenType getType() {
+        return _type;
+    }
+
+    std::string getText(){
+        return _text;
+    }
+
     std::string tokenTypeToString(TokenType type) const {
         switch (type) {
             case TokenType::Int: return "Int";
@@ -29,10 +40,13 @@ public:
             case TokenType::Number: return "Number";
             case TokenType::Plus: return "Plus";
             case TokenType::Minus: return "Minus";
+            case TokenType::LParan: return "LParan";
+            case TokenType::RParan: return "RParan";
             case TokenType::LBrace: return "LBrace";
             case TokenType::RBrace: return "RBrace";
             case TokenType::Semicolon: return "Semicolon";
             case TokenType::EoF: return "EoF";
+            case TokenType::Unknown: return "Unknown";
             default: return "Unknown";
         }
     }
