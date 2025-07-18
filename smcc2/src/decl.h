@@ -3,9 +3,9 @@
 
 #include "defs.h"
 
-Token* token_list(const char *input, int *index);
-TokenType keyword_or_ident(char *word);
 Token get_token(char* word);
 void print_tokens(Token* token_list);
+Token peek_token(Lexer* lexer);
+Token next_token(Lexer* lexer);
 
 #endif

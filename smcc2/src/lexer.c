@@ -63,79 +63,99 @@ void print_tokens(Token* token_list){
     }
 }
 
-Token* token_list(const char* input, int* index)
-{
-    Token* tok_list = (Token*)malloc(sizeof(Token) * MAX_TOKENS);
-    char c = input[*index];
+Token next_token(Lexer* lexer){
+    Token _token = { TOKEN_EO, NULL };
 
-    int i = 0;
+    char c = lexer->input[lexer->pos];
+    int *pos = &lexer->pos;
 
-    while(c != '\0'){
-        if (isspace(c)){
-            (*index)++;
-            c = input[*index];
-        }
-        if (c == '\0') break;
-
-        if (isalpha(c) || isdigit(c) || c == '_') {
-            char *word = read_word(input, index);
-            // if blank word then dont process
-            if (strlen(word) > 0) {
-                Token token = get_token(word);
-                tok_list[i] = token;
-                // printf("Type: %s || Word: '%s' || (%d)\n", token_array[token.type], word, *index);
-                i++;
-            }
-        }
-        else if (c == '+')
-        {
-            Token token = {TOKEN_PLUS, strdup("+")};
-            // printf("Type: %s || Word: '%s' || (%d)\n", token_array[token.type], "+", *index);
-            (*index)++;
-            tok_list[i] = token;
-            i++;
-        }
-        else if (c == '-')
-        {
-            Token token = {TOKEN_MINUS, strdup("-")};
-            // printf("Type: %s || Word: '%s' || (%d)\n", token_array[token.type], "+", *index);
-            (*index)++;
-            tok_list[i] = token;
-            i++;
-        }
-        else if (c == '{'){
-            Token token = {TOKEN_LBRACE, strdup("{")};
-            // printf("Type: %s || Word: '%s' || (%d)\n", token_array[token.type], "{", *index);
-            (*index)++;
-            tok_list[i] = token;
-            i++;
-        }
-        else if (c == '}'){
-            Token token = {TOKEN_RBRACE, strdup("}")};
-            // printf("Type: %s || Word: '%s' || (%d)\n", token_array[token.type], "}", *index);
-            (*index)++;
-            tok_list[i] = token;
-            i++;
-        }
-        else if (c == ';') {
-            Token token = {TOKEN_SEMICOLON, strdup(";")};
-            // printf("Type: %s || Word: '%s' || (%d)\n", token_array[token.type], ";", *index);
-            (*index)++;
-            tok_list[i] = token;
-            i++;
-        }
-        else {
-            // Skip unkown characters
-            (*index)++;
-        }
-
-        c = input[*index];
+    while (isspace(c)) {
+        (*pos)++;
+        c = lexer->input[*pos];
     }
 
-    Token end_token = {TOKEN_EO, NULL};
-    tok_list[i] = end_token;
 
-    return tok_list;
+    if (isalpha(c) || isdigit(c) || c == '_'){
+        char *word = read_word(lexer->input, pos);
+        // if blank word then dont process
+        if (strlen(word) > 0) {
+            _token = get_token(word);
+        }
+        free(word);
+    }
+    else {
+        switch (c){
+        case '+':
+            _token = (Token){TOKEN_PLUS, strdup("+")};
+            break;
+        case '-':
+            _token = (Token){TOKEN_MINUS, strdup("-")};
+            break;
+        case '{':
+            _token = (Token){TOKEN_LBRACE, strdup("{")};
+            break;
+        case '}':
+            _token = (Token){TOKEN_RBRACE, strdup("}")};
+            break;
+        case ';':
+            _token = (Token){TOKEN_SEMICOLON, strdup(";")};
+            break;
+        default:
+            break;
+        }
+        (*pos)++;
+    }
+
+    return _token;
+}
+
+Token peek_token(Lexer* lexer){
+    Token _token = { TOKEN_EO, NULL };
+
+    int pos = lexer->pos;
+    char c = lexer->input[pos];
+
+    while (isspace(c)) {
+        (pos)++;
+        c = lexer->input[pos];
+    }
+
+
+    if (isalpha(c) || isdigit(c) || c == '_')
+    {
+        char *word = read_word(lexer->input, &pos);
+        // if blank word then dont process
+        if (strlen(word) > 0)
+        {
+            _token = get_token(word);
+        }
+        free(word);
+    }
+    else
+    {
+        switch (c)
+        {
+        case '+':
+            _token = (Token){TOKEN_PLUS, strdup("+")};
+            break;
+        case '-':
+            _token = (Token){TOKEN_MINUS, strdup("-")};
+            break;
+        case '{':
+            _token = (Token){TOKEN_LBRACE, strdup("{")};
+            break;
+        case '}':
+            _token = (Token){TOKEN_RBRACE, strdup("}")};
+            break;
+        case ';':
+            _token = (Token){TOKEN_SEMICOLON, strdup(";")};
+            break;
+        default:
+            break;
+        }
+        pos++;
+    }
+    return _token;
 }
 
 Token get_token(char* word){

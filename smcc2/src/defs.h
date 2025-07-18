@@ -21,4 +21,10 @@ typedef struct
     char *text;
 } Token;
 
+typedef struct {
+    const char* input;
+    int pos;
+    int line;
+} Lexer;
+
 #endif
