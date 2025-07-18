@@ -1,17 +1,17 @@
 #include "decl.h"
+#include <stdlib.h>
 
 int main(){
-    int pos = 0;
     char sentence[] = "int return 1235 asdfasdf  ++- --   { }  jasdf";
-                    // 01234567891011
 
-    Lexer* lexer = {sentence, 0, 0};
+    Lexer lexer = {sentence, 0, 0};
+    Token token;
 
-    Token next_token = next_token()
-    while(current_token.type != TOKEN_EO){
-        current_token = peek_token(&lexer);
+    while((token = next_token(&lexer)).type != TOKEN_EO) {
+        print_token(token);
+
+        free(token.text);
     }
-
 
     return 0;
 }

@@ -30,7 +30,7 @@ char* read_word(const char* input, int* index) {
 
     if (isalpha(c)){
         // isalnum for having numbers also in variable names
-        while ((isalnum(c) || c == '_')) {
+        while (c != '\0' && (isalnum(c) || c == '_')) {
             word[i] = c;
             (*index)++;
             c = input[*index];
@@ -52,15 +52,8 @@ char* read_word(const char* input, int* index) {
     return word;
 }
 
-void print_tokens(Token* token_list){
-    int i = 0;
-    Token t = token_list[0];
-
-    while (t.type != TOKEN_EO && t.text != NULL) {
-        printf("Token.type: %s, Token.text: %s\n", token_array[t.type], t.text);
-        i++;
-        t = token_list[i];
-    }
+void print_token(Token token){
+        printf("Token.type: %s, Token.text: %s\n", token_array[token.type], token.text);
 }
 
 Token next_token(Lexer* lexer){
