@@ -1,7 +1,7 @@
 #ifndef DECL_H
 #define DECL_H
 
-#include "defs.hh"
+#include "defs.h"
 
 Token get_token(char* word);
 void print_token(Token token_list);

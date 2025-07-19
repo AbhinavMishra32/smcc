@@ -28,6 +28,12 @@ Token Lexer::nextToken()
         case '-':
             _pos++;
             return Token(TokenType::Minus, "-");
+        case '(':
+            _pos++;
+            return Token(TokenType::LParan, "(");
+        case ')':
+            _pos++;
+            return Token(TokenType::RParan, ")");
         case '{':
             _pos++;
             return Token(TokenType::LBrace, "{");
@@ -64,24 +70,19 @@ std::string Lexer::readWord()
 {
     std::string word;
 
-    if (_pos > _input.size())
-    {
+    if (_pos > _input.size()) {
         return word;
     }
 
     char c = _input[_pos];
 
-    if (std::isalpha(c) || c == '_')
-    {
-        while (_pos < _input.size() && (std::isalnum(_input[_pos]) || _input[_pos] == '_'))
-        {
+    if (std::isalpha(c) || c == '_') {
+        while (_pos < _input.size() && (std::isalnum(_input[_pos]) || _input[_pos] == '_')) {
             word += _input[_pos++];
         }
     }
-    else if (std::isdigit(c))
-    {
-        while (_pos < _input.size() || (std::isdigit(_input[_pos])))
-        {
+    else if (std::isdigit(c)) {
+        while (_pos < _input.size() || (std::isdigit(_input[_pos]))) {
             word += _input[_pos++];
         }
     }
@@ -102,7 +103,7 @@ std::string Lexer::readNumber()
 
     if (std::isdigit(c))
     {
-        while (_pos < _input.size() && std::isdigit(c))
+        while (_pos < _input.size() && std::isdigit(_input[_pos]))
         {
             number += _input[_pos++];
         }

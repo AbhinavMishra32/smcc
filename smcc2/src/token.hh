@@ -24,36 +24,14 @@ private:
     std::string _text;
 
 public:
-    TokenType getType() {
-        return _type;
-    }
+    Token(TokenType type, const std::string &text);
 
-    std::string getText(){
-        return _text;
-    }
+    TokenType getType();
 
-    std::string tokenTypeToString(TokenType type) const {
-        switch (type) {
-            case TokenType::Int: return "Int";
-            case TokenType::Return: return "Return";
-            case TokenType::Ident: return "Ident";
-            case TokenType::Number: return "Number";
-            case TokenType::Plus: return "Plus";
-            case TokenType::Minus: return "Minus";
-            case TokenType::LParan: return "LParan";
-            case TokenType::RParan: return "RParan";
-            case TokenType::LBrace: return "LBrace";
-            case TokenType::RBrace: return "RBrace";
-            case TokenType::Semicolon: return "Semicolon";
-            case TokenType::EoF: return "EoF";
-            case TokenType::Unknown: return "Unknown";
-            default: return "Unknown";
-        }
-    }
+    std::string getText();
 
-    Token(TokenType type, const std::string& text) : _text(text), _type(type) {}
+    std::string tokenTypeToString(TokenType type) const;
 
-    std::string toString() const {
-        return "Token(" + tokenTypeToString(_type) + ", \"" + _text + "\")";
-    }
+
+    std::string toString() const;
 };

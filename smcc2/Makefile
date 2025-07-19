@@ -2,8 +2,8 @@
 UNAME_S := $(shell uname -s 2>/dev/null || echo Windows)
 
 # Compiler and flags
-CC = gcc
-CFLAGS = -Wall -g -I./src
+CXX = g++
+CXXFLAGS = -Wall -g -std=c++17 -I./src
 
 # OS-specific settings
 ifeq ($(UNAME_S),Darwin)
@@ -28,10 +28,10 @@ SRC_DIR = src
 BUILD_DIR = build
 
 # Source files
-SRCS = $(wildcard $(SRC_DIR)/*.c)
+SRCS = $(wildcard $(SRC_DIR)/*.cc)
 
 # Object files will be in build/, not src/
-OBJS = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRCS))
+OBJS = $(patsubst $(SRC_DIR)/%.cc, $(BUILD_DIR)/%.o, $(SRCS))
 
 # Executable name
 TARGET = $(BUILD_DIR)/smcc$(EXE_EXT)
@@ -39,17 +39,17 @@ TARGET = $(BUILD_DIR)/smcc$(EXE_EXT)
 # Default target
 all: $(TARGET)
 
-debug: CFLAGS += -DDEBUG
+debug: CXXFLAGS += -DDEBUG
 debug: $(TARGET)
 
 # Linking
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^
+	$(CXX) $(CXXFLAGS) -o $@ $^
 
-# Compile each .c in src/ to .o in build/
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
+# Compile each .cc in src/ to .o in build/
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cc
 	@$(MKDIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Clean build files
 clean:
