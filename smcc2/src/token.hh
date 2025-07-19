@@ -30,7 +30,7 @@ public:
 
     std::string getText();
 
-    std::string tokenTypeToString(TokenType type) const;
+    static std::string tokenTypeToString(TokenType type);
 
 
     std::string toString() const;

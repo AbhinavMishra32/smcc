@@ -10,7 +10,7 @@ std::string Token::getText(){
     return _text;
 }
 
-std::string Token::tokenTypeToString(TokenType type) const {
+std::string Token::tokenTypeToString(TokenType type) {
     switch (type) {
         case TokenType::Int: return "Int";
         case TokenType::Return: return "Return";
