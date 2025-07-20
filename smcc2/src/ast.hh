@@ -1,5 +1,7 @@
+#pragma once
 #include <string>
 #include <vector>
+#include <memory>
 
 enum class ASTType {
     Function,
@@ -11,7 +13,11 @@ enum class ASTType {
 };
 
 struct ASTNode {
+public:
     ASTType type;
     std::string value;
-    std::vector<ASTNode*> children;
+    std::vector<std::shared_ptr<ASTNode>> children;
+
+    ASTNode(ASTType t, const std::string& val = "");
+    void addChild(std::shared_ptr<ASTNode> child);
 };
