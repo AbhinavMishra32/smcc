@@ -15,8 +15,8 @@ public:
     ASTNode* parseFunction();
     ASTNode* parseBlock();
     ASTNode* parseStatement();
-    ASTNode* parseExpression();
     ASTNode* parseFactor();
+    ASTNode* parseExpression();
     ASTNode* parseTerm();
 
 private:

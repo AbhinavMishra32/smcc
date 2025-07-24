@@ -27,6 +27,15 @@ bool Parser::match(TokenType type) {
     return false;
 }
 
+// TODO
+// // for return <statement>
+// ASTNode* Parser::parseStatement() {
+//     advance();
+//     if (_current.getType() == TokenType::Return) {
+//         
+//     }
+// }
+
 // for Ident, Number, Expressions
 ASTNode* Parser::parseFactor() {
     advance();
@@ -50,3 +59,7 @@ ASTNode* Parser::parseFactor() {
     error("Unexpected token in factor");
     return nullptr;
 }
+
+// ASTNode* Parser::parseTerm() {
+//     advance();
+// }
