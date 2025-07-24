@@ -1,7 +1,9 @@
 #pragma once
 #include "token.hh"
 #include "lexer.hh"
+#include "ast.hh"
 #include <iostream>
+#include <cstdlib>
 
 class Parser {
 
@@ -14,6 +16,8 @@ public:
     ASTNode* parseBlock();
     ASTNode* parseStatement();
     ASTNode* parseExpression();
+    ASTNode* parseFactor();
+    ASTNode* parseTerm();
 
 private:
     Lexer& _lexer;
@@ -25,3 +29,5 @@ private:
 
 
 };
+
+void error(const std::string& message);

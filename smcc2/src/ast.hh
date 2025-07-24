@@ -7,7 +7,8 @@ enum class ASTType {
     Function,
     ReturnStmt,
     Block,
-    BinaryOp,
+    UnaryMinus,
+    UnaryPlus,
     Number,
     Variable
 };
