@@ -21,4 +21,5 @@ public:
 
     ASTNode(ASTType t, const std::string& val = "");
     void addChild(std::shared_ptr<ASTNode> child);
+    std::string toString();
 };
