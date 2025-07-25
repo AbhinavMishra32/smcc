@@ -2,15 +2,13 @@
 #include "token.hh"
 #include "lexer.hh"
 #include "ast.hh"
-#include <iostream>
-#include <cstdlib>
 
 class Parser {
 
 public:
     Parser(Lexer& lexer);
 
-
+    Token getCurrent();
     ASTNode* parse();
     ASTNode* parseFunction();
     ASTNode* parseBlock();
@@ -18,6 +16,7 @@ public:
     ASTNode* parseFactor();
     ASTNode* parseExpression();
     ASTNode* parseTerm();
+    void printAST(ASTNode& ast);
 
 private:
     Lexer& _lexer;
@@ -26,7 +25,6 @@ private:
     void advance();
     bool match(TokenType type);
     void expect(TokenType type);
-
 
 };
 
