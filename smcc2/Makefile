@@ -18,8 +18,8 @@ else ifeq ($(UNAME_S),Linux)
     EXE_EXT = 
 else
     # Windows (MinGW/MSYS2/Git Bash)
-    MKDIR = if not exist $(BUILD_DIR) mkdir $(BUILD_DIR)
-    RM = if exist $(BUILD_DIR) rmdir /s /q $(BUILD_DIR)
+    MKDIR = if not exist
+    RM = if exist $(BUILD_DIR) rmdir /s /q
     EXE_EXT = .exe
 endif
 
@@ -48,9 +48,17 @@ $(TARGET): $(OBJS)
 
 # Compile each .cc in src/ to .o in build/
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cc
-	@$(MKDIR)
+ifeq ($(UNAME_S),Windows)
+	@$(MKDIR) $(BUILD_DIR) mkdir $(BUILD_DIR)
+else
+	@$(MKDIR) $(BUILD_DIR)
+endif
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Clean build files
 clean:
-	@$(RM)
+ifeq ($(UNAME_S),Windows)
+	@$(RM) $(BUILD_DIR)
+else
+	@$(RM) $(BUILD_DIR)
+endif
