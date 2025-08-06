@@ -9,17 +9,18 @@ int main(){
 
     Lexer lexer(sourceCode);
 
-   //  while (true) {
-   //      Token tok = lexer.nextToken();
-   //      if (tok.getType() == TokenType::EoF) break;
-   //
-   //      std::cout << tok.toString() << std::endl;
-   // }
+//     while (true) {
+//         Token tok = lexer.nextToken();
+//         if (tok.getType() == TokenType::EoF) break;
+
+//         std::cout << tok.toString() << std::endl;
+//    }
 
     Parser parser(lexer);
     
-    ASTNode* ast = parser.parseFactor();
-    parser.printAST(*ast);
+    // ASTNode* ast = parser.parseFactor();
+    ASTNode* ast = parser.parseExpression();
+    parser.printAST(*ast, 0);
 
     return 0;
 }

@@ -9,6 +9,8 @@ enum class ASTType {
     Block,
     UnaryMinus,
     UnaryPlus,
+    BinaryMinus,
+    BinaryPlus,
     Number,
     Variable
 };

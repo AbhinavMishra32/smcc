@@ -16,7 +16,7 @@ public:
     ASTNode* parseFactor();
     ASTNode* parseExpression();
     ASTNode* parseTerm();
-    void printAST(ASTNode& ast);
+    void printAST(ASTNode& ast, int indent = 0);
 
 private:
     Lexer& _lexer;

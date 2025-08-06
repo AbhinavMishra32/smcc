@@ -43,20 +43,23 @@ bool Parser::match(TokenType type) {
 //     }
 // }
 
-// for Ident, Number, Expressions
+// for Ident, Number
 ASTNode* Parser::parseFactor() {
-    advance();
+    // advance();
     // std::cout << getCurrent().toString() << std::endl;
+    // std::cout << Token::tokenTypeToString(_current.getType()) << std::endl;
 
     if (_current.getType() == TokenType::Ident) {
-        std::cout << "=Variable" << std::endl;
+        // std::cout << "Variable" << std::endl;
         ASTNode* node = new ASTNode(ASTType::Variable, _current.getText());
         advance();
         return node;
     }
-    else if (_current.getType() == TokenType::Int) {
-        std::cout << "Number" << std::endl;
-        return new ASTNode(ASTType::Number, _current.getText());
+    else if (_current.getType() == TokenType::Number) {
+        // std::cout << "Number" << std::endl;
+        std::string value = _current.getText();
+        advance();
+        return new ASTNode(ASTType::Number, value);
     }
     // else if (_current.getType() == TokenType::LParan) {
     //     advance();
@@ -64,22 +67,41 @@ ASTNode* Parser::parseFactor() {
     //     expect(TokenType::RParan);
     //     return expr;
     // }
-    else if (_current.getType() == TokenType::Minus) {
-        std::cout << "Minus" << std::endl;
-        advance();
-        auto operand = parseFactor();
-        ASTNode* node = new ASTNode(ASTType::UnaryMinus);
-        node->addChild(std::shared_ptr<ASTNode>(operand));
-        return node;
-    }
 
     error("Unexpected token in factor");
     return nullptr;
 }
 
-void Parser::printAST(ASTNode& ast) {
-    advance();
-    std::cout << ast.toString() <<std::endl;
+ASTNode* Parser::parseExpression() {
+    auto left = parseFactor();
+
+    if (_current.getType() == TokenType::Minus || _current.getType() == TokenType::Plus) {
+        TokenType op = _current.getType();
+        advance();
+        auto right = parseFactor();
+
+        ASTNode* binaryNode = new ASTNode(
+            op == TokenType::Minus ? ASTType::BinaryMinus : ASTType::BinaryPlus
+        );
+        binaryNode->addChild(std::shared_ptr<ASTNode>(left));
+        binaryNode->addChild(std::shared_ptr<ASTNode>(right));
+        return binaryNode;
+    }
+
+    // if just a single factor then return left
+    return left;
+}
+
+void Parser::printAST(ASTNode& ast, int indent) {
+    for (int i = 0; i < indent; i++) {
+        std::cout << " | ";
+    }
+
+    std::cout << ast.toString() << std::endl;
+
+    for (auto& child : ast.children) {
+        printAST(*child, indent + 1);
+    }
 }
 
 // ASTNode* Parser::parseTerm() {

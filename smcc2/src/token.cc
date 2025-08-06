@@ -1,6 +1,6 @@
 #include "token.hh"
 
-Token::Token(TokenType type, const std::string &text) : _text(text), _type(type) {}
+Token::Token(TokenType type, const std::string &text) : _type(type), _text(text) {}
 
 TokenType Token:: getType() {
     return _type;

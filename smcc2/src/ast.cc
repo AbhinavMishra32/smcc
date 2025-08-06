@@ -14,6 +14,8 @@ std::string ASTNode::toString() {
         case ASTType::Number: return "Number";
         case ASTType::UnaryMinus: return "UnaryPlus";
         case ASTType::UnaryPlus: return "UnaryPlus";
+        case ASTType::BinaryMinus: return "BinaryMinus";
+        case ASTType::BinaryPlus: return "BinaryPlus";
         case ASTType::Variable: return "Variable";
         default: return "UnkownNode";
     }
