@@ -28,6 +28,12 @@ Token Lexer::nextToken()
         case '-':
             _pos++;
             return Token(TokenType::Minus, "-");
+        case '*':
+            _pos++;
+            return Token(TokenType::Mul, "*");
+        case '/':
+            _pos++;
+            return Token(TokenType::Div, "/");
         case '(':
             _pos++;
             return Token(TokenType::LParan, "(");

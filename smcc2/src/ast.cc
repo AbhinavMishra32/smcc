@@ -12,6 +12,8 @@ std::string ASTNode::toString() {
         case ASTType::ReturnStmt: return "ReturnStmt";
         case ASTType::Function: return "Function";
         case ASTType::Number: return "Number";
+        case ASTType::BinaryMul: return "BinaryMultiply";
+        case ASTType::BinaryDiv: return "BinaryDiv";
         case ASTType::UnaryMinus: return "UnaryPlus";
         case ASTType::UnaryPlus: return "UnaryPlus";
         case ASTType::BinaryMinus: return "BinaryMinus";

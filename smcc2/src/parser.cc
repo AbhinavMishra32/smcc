@@ -72,16 +72,36 @@ ASTNode* Parser::parseFactor() {
     return nullptr;
 }
 
-ASTNode* Parser::parseExpression() {
+ASTNode* Parser::parseTerm() {
     auto left = parseFactor();
+
+    while (_current.getType() == TokenType::Mul || _current.getType() == TokenType::Div) {
+        TokenType op = _current.getType();
+        advance();
+        auto right = parseFactor();
+        ASTNode* binaryNode = new ASTNode(
+            op == TokenType::Mul ? ASTType::BinaryMul : ASTType::BinaryDiv, op == TokenType::Mul ? "*" : "/"
+        );
+        binaryNode->addChild(std::shared_ptr<ASTNode>(left));
+        binaryNode->addChild(std::shared_ptr<ASTNode>(right));
+
+        left = binaryNode;
+    }
+
+    // if not * or / in right of it then return just single node
+    return left;
+}
+ 
+ASTNode* Parser::parseExpression() {
+    auto left = parseTerm();
 
     while (_current.getType() == TokenType::Minus || _current.getType() == TokenType::Plus) {
         TokenType op = _current.getType();
         advance();
-        auto right = parseFactor();
+        auto right = parseTerm();
 
         ASTNode* binaryNode = new ASTNode(
-            op == TokenType::Minus ? ASTType::BinaryMinus : ASTType::BinaryPlus
+            op == TokenType::Minus ? ASTType::BinaryMinus : ASTType::BinaryPlus, op == TokenType::Minus ? "-" : "+"
         );
         binaryNode->addChild(std::shared_ptr<ASTNode>(left));
         binaryNode->addChild(std::shared_ptr<ASTNode>(right));
@@ -95,10 +115,10 @@ ASTNode* Parser::parseExpression() {
 
 void Parser::printAST(ASTNode& ast, int indent) {
     for (int i = 0; i < indent; i++) {
-        std::cout << " | ";
+        std::cout << " ├─ ";
     }
 
-    std::cout << ast.toString() << std::endl;
+    std::cout << ast.toString() << "(" << ast.value << ")" << std::endl;
 
     for (auto& child : ast.children) {
         printAST(*child, indent + 1);

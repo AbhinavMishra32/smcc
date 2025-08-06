@@ -11,6 +11,8 @@ enum class ASTType {
     UnaryPlus,
     BinaryMinus,
     BinaryPlus,
+    BinaryMul,
+    BinaryDiv,
     Number,
     Variable
 };

@@ -9,6 +9,8 @@ enum class TokenType {
     Number,
     Plus,
     Minus,
+    Mul,
+    Div,
     LParan,
     RParan,
     LBrace,

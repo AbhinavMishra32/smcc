@@ -18,6 +18,8 @@ std::string Token::tokenTypeToString(TokenType type) {
         case TokenType::Number: return "Number";
         case TokenType::Plus: return "Plus";
         case TokenType::Minus: return "Minus";
+        case TokenType::Mul: return "Mul";
+        case TokenType::Div: return "Div";
         case TokenType::LParan: return "LParan";
         case TokenType::RParan: return "RParan";
         case TokenType::LBrace: return "LBrace";
