@@ -5,7 +5,7 @@
 
 int main(){
     // std::string sourceCode = R"(int main() { return 42; })";
-    std::string sourceCode = R"(23 - 43)";
+    std::string sourceCode = R"(23 - 43 + 34)";
 
     Lexer lexer(sourceCode);
 

@@ -75,7 +75,7 @@ ASTNode* Parser::parseFactor() {
 ASTNode* Parser::parseExpression() {
     auto left = parseFactor();
 
-    if (_current.getType() == TokenType::Minus || _current.getType() == TokenType::Plus) {
+    while (_current.getType() == TokenType::Minus || _current.getType() == TokenType::Plus) {
         TokenType op = _current.getType();
         advance();
         auto right = parseFactor();
@@ -85,7 +85,8 @@ ASTNode* Parser::parseExpression() {
         );
         binaryNode->addChild(std::shared_ptr<ASTNode>(left));
         binaryNode->addChild(std::shared_ptr<ASTNode>(right));
-        return binaryNode;
+         
+        left = binaryNode;
     }
 
     // if just a single factor then return left
