@@ -12,6 +12,7 @@ std::string Token::getText(){
 
 std::string Token::tokenTypeToString(TokenType type) {
     switch (type) {
+        case TokenType::Equals: return "Equals";
         case TokenType::Int: return "Int";
         case TokenType::Return: return "Return";
         case TokenType::Ident: return "Ident";

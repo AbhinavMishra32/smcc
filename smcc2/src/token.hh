@@ -3,6 +3,7 @@
 // #include <iostream>
 
 enum class TokenType {
+    Equals,
     Int,
     Return,
     Ident,

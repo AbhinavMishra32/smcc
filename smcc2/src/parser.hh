@@ -16,6 +16,7 @@ public:
     ASTNode* parseFactor();
     ASTNode* parseExpression();
     ASTNode* parseTerm();
+    ASTNode* parseAssignment();
     void printAST(ASTNode& ast, int indent = 0);
 
 private:

@@ -4,6 +4,7 @@
 #include <memory>
 
 enum class ASTType {
+    Assign,
     Function,
     ReturnStmt,
     Block,
@@ -14,7 +15,7 @@ enum class ASTType {
     BinaryMul,
     BinaryDiv,
     Number,
-    Variable
+    Identifier
 };
 
 struct ASTNode {

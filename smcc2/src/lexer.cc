@@ -22,6 +22,9 @@ Token Lexer::nextToken()
     {
         switch (c)
         {
+        case '=':
+            _pos++;
+            return Token(TokenType::Equals, "=");
         case '+':
             _pos++;
             return Token(TokenType::Plus, "+");
@@ -121,6 +124,6 @@ std::string Lexer::readNumber()
 Token Lexer::getToken(std::string &word)
 {
     if (word == "int") return Token(TokenType::Int, word);
-    if (word == "return") return Token(TokenType::Return, word);
+    else if (word == "return") return Token(TokenType::Return, word);
     return Token(TokenType::Ident, word);
 }

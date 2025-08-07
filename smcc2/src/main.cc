@@ -5,7 +5,7 @@
 
 int main(){
     // std::string sourceCode = R"(int main() { return 42; })";
-    std::string sourceCode = R"(23 - 43 * 34 / 3)";
+    std::string sourceCode = "k = (23 - 43) * 34 / 3;";
 
     Lexer lexer(sourceCode);
 
@@ -19,7 +19,7 @@ int main(){
     Parser parser(lexer);
     
     // ASTNode* ast = parser.parseFactor();
-    ASTNode* ast = parser.parseExpression();
+    ASTNode* ast = parser.parseStatement();
     parser.printAST(*ast, 0);
 
     return 0;

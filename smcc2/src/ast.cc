@@ -8,6 +8,7 @@ void ASTNode::addChild(std::shared_ptr<ASTNode> child){
 
 std::string ASTNode::toString() {
     switch (type) {
+        case ASTType::Assign: return "Assign";
         case ASTType::Block: return "Block";
         case ASTType::ReturnStmt: return "ReturnStmt";
         case ASTType::Function: return "Function";
@@ -18,7 +19,7 @@ std::string ASTNode::toString() {
         case ASTType::UnaryPlus: return "UnaryPlus";
         case ASTType::BinaryMinus: return "BinaryMinus";
         case ASTType::BinaryPlus: return "BinaryPlus";
-        case ASTType::Variable: return "Variable";
+        case ASTType::Identifier: return "Identifier";
         default: return "UnkownNode";
     }
 }

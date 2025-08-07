@@ -15,9 +15,10 @@ Token Parser::getCurrent() {
 
 void Parser::expect(TokenType type) {
   if (_current.getType() != type) {
-    throw std::runtime_error("Expected token " +
-                             Token::tokenTypeToString(type) + " but got " +
-                             Token::tokenTypeToString(_current.getType()));
+    throw std::runtime_error("Expected token '" +
+                             Token::tokenTypeToString(type) + "[" + _current.getText() + "]" + "' but got " + 
+                             "'" +
+                             Token::tokenTypeToString(_current.getType()) + "[" + _current.getText() + "]" + "'");
   }
   advance();
 }
@@ -34,14 +35,51 @@ bool Parser::match(TokenType type) {
   return false;
 }
 
-// TODO
-// // for return <statement>
-// ASTNode* Parser::parseStatement() {
-//     advance();
-//     if (_current.getType() == TokenType::Return) {
-//         
-//     }
+// ASTNode* Parser::parseFunction() {
+//     if (_current.getType() == TokenType:)
 // }
+
+// // for return <statement>
+ASTNode* Parser::parseStatement() {
+    if (_current.getType() == TokenType::Return) {
+        advance();
+        auto expr = parseExpression();
+        ASTNode* returnNode = new ASTNode(ASTType::ReturnStmt);
+        returnNode->addChild(std::shared_ptr<ASTNode>(expr));
+        return returnNode;
+    }
+    else if (_current.getType() == TokenType::Ident) {
+        auto result = parseAssignment();
+        expect(TokenType::Semicolon);
+        return result;
+    }
+
+    error("Unkown statement type");
+    return nullptr;
+}
+
+ASTNode* Parser::parseAssignment(){
+    if (_current.getType() == TokenType::Ident) {
+        std::string varName = _current.getText();
+        advance();
+        if (_current.getType() == TokenType::Equals) {
+            advance();
+            auto right = parseExpression();
+            ASTNode* leftNode = new ASTNode(ASTType::Identifier, varName);
+
+            ASTNode* assignNode = new ASTNode(ASTType::Assign, "=");
+            assignNode->addChild(std::shared_ptr<ASTNode>(leftNode));
+            assignNode->addChild(std::shared_ptr<ASTNode>(right));
+            return assignNode;
+        } else {
+            return new ASTNode(ASTType::Identifier, varName);
+        }
+
+    }
+
+    return parseExpression();
+
+}
 
 // for Ident, Number
 ASTNode* Parser::parseFactor() {
@@ -49,24 +87,18 @@ ASTNode* Parser::parseFactor() {
     // std::cout << getCurrent().toString() << std::endl;
     // std::cout << Token::tokenTypeToString(_current.getType()) << std::endl;
 
-    if (_current.getType() == TokenType::Ident) {
-        // std::cout << "Variable" << std::endl;
-        ASTNode* node = new ASTNode(ASTType::Variable, _current.getText());
-        advance();
-        return node;
-    }
-    else if (_current.getType() == TokenType::Number) {
+    if (_current.getType() == TokenType::Number) {
         // std::cout << "Number" << std::endl;
         std::string value = _current.getText();
         advance();
         return new ASTNode(ASTType::Number, value);
     }
-    // else if (_current.getType() == TokenType::LParan) {
-    //     advance();
-    //     auto expr = parseExpression();
-    //     expect(TokenType::RParan);
-    //     return expr;
-    // }
+    else if (_current.getType() == TokenType::LParan) {
+        advance();
+        auto expr = parseExpression();
+        expect(TokenType::RParan);
+        return expr;
+    }
 
     error("Unexpected token in factor");
     return nullptr;
@@ -115,7 +147,11 @@ ASTNode* Parser::parseExpression() {
 
 void Parser::printAST(ASTNode& ast, int indent) {
     for (int i = 0; i < indent; i++) {
-        std::cout << " ├─ ";
+        std::cout << "│   ";
+    }
+    
+    if (indent > 0) {
+        std::cout << "└─ ";
     }
 
     std::cout << ast.toString() << "(" << ast.value << ")" << std::endl;
@@ -124,7 +160,3 @@ void Parser::printAST(ASTNode& ast, int indent) {
         printAST(*child, indent + 1);
     }
 }
-
-// ASTNode* Parser::parseTerm() {
-//     advance();
-// }
