@@ -18,19 +18,24 @@ std::string readFile(const std::string& filename) {
     return buffer.str();
 }
 
-int main(){
+int main(int argc, char* argv[]){
     // std::string sourceCode = R"(int main() { return 42; })";
     // std::string sourceCode = R"(k = "(23 - 43) * 34 / 3;)";
-    std::string sourceCode = readFile("./language/main.c");
+
+    std::string sourceCode = readFile(argv[1]);
 
     Lexer lexer(sourceCode);
 
-//     while (true) {
-//         Token tok = lexer.nextToken();
-//         if (tok.getType() == TokenType::EoF) break;
+    if (argc > 2 && std::string(argv[2]) == "--lex") {
+        while (true) {
+            Token tok = lexer.nextToken();
+            if (tok.getType() == TokenType::EoF)
+                break;
 
-//         std::cout << tok.toString() << std::endl;
-//    }
+            std::cout << tok.toString() << std::endl;
+        }
+    }
+
 
     Parser parser(lexer);
     
