@@ -56,12 +56,11 @@ Token Lexer::nextToken()
             return Token(TokenType::EoF, "");
         default:
             _pos++;
-            return Token(TokenType::Unknown, "");
+            return Token(TokenType::Unknown, std::string(1, c));
         }
     }
 }
-Token Lexer::peekToken()
-{
+Token Lexer::peekToken() {
     size_t savedPos = _pos;
     Token token = nextToken();
     _pos = savedPos;

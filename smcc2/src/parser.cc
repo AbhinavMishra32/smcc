@@ -100,7 +100,7 @@ ASTNode* Parser::parseFactor() {
         return expr;
     }
 
-    error("Unexpected token in factor");
+    error("Unexpected token in factor [" + _current.getText() + "]");
     return nullptr;
 }
 
