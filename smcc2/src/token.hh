@@ -21,6 +21,7 @@ enum class TokenType {
     Unknown
 };
 
+
 class Token {
 private:
     TokenType _type;

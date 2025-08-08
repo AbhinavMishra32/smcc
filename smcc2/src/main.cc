@@ -40,7 +40,7 @@ int main(int argc, char* argv[]){
     Parser parser(lexer);
     
     // ASTNode* ast = parser.parseFactor();
-    ASTNode* ast = parser.parseStatement();
+    ASTNode* ast = parser.parseFunction();
     parser.printAST(*ast, 0);
 
     return 0;
