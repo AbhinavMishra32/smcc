@@ -1,6 +1,6 @@
 int main(){
-    abc = (23 - 43) * 34 / 3;
-    def = 2 + 4;
+    int def = 2 + 4 + 5;
+    abc = 3 + 5;
 
     return abc;
 }

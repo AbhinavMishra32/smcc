@@ -1,6 +1,6 @@
 #include "ast.hh"
 
-ASTNode::ASTNode(ASTType t, const std::string& val) : type(t), value(val) {}
+ASTNode::ASTNode(ASTType t, const std::string& val) : type(t), value(val), varType(std::nullopt) {}
 
 void ASTNode::addChild(std::shared_ptr<ASTNode> child){
     children.push_back(child);
@@ -20,6 +20,15 @@ std::string ASTNode::toString() {
         case ASTType::BinaryMinus: return "BinaryMinus";
         case ASTType::BinaryPlus: return "BinaryPlus";
         case ASTType::Identifier: return "Identifier";
+        case ASTType::Declaration: return "Declaration";
         default: return "UnkownNode";
+    }
+}
+
+std::string ASTNode::variableTypeToString(VariableType t) {
+    switch (t) {
+        case VariableType::Int: return "Int";
+        case VariableType::Bool: return "Bool";
+        case VariableType::String: return "String";
     }
 }

@@ -82,6 +82,21 @@ ASTNode* Parser::parseStatement() {
         returnNode->addChild(std::shared_ptr<ASTNode>(expr));
         return returnNode;
     }
+    else if (_current.getType() == TokenType::Int) {
+        advance();
+        std::string varName = _current.getText();
+        expect(TokenType::Ident);
+        ASTNode* declaredVar = new ASTNode(ASTType::Declaration, varName);
+        declaredVar->varType = VariableType::Int;
+
+        if (_current.getType() == TokenType::Equals) {
+            advance();
+            ASTNode* initExpr = parseExpression();
+            declaredVar->addChild(std::shared_ptr<ASTNode>(initExpr));
+        }
+        expect(TokenType::Semicolon);
+        return declaredVar;
+    }
     else if (_current.getType() == TokenType::Ident) {
         auto result = parseAssignment();
         expect(TokenType::Semicolon);
@@ -194,7 +209,11 @@ void Parser::printAST(ASTNode& ast, int indent) {
         std::cout << "└─ ";
     }
 
-    std::cout << ast.toString() << "(" << ast.value << ")" << std::endl;
+    std::cout << ast.toString() << "(" << ast.value;
+    if (ast.varType.has_value()) {
+        std::cout << ", " << ast.variableTypeToString(ast.varType.value());
+    }
+    std::cout << ")" << std::endl;
 
     for (auto& child : ast.children) {
         printAST(*child, indent + 1);
