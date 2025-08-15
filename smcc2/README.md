@@ -9,6 +9,17 @@ docker run --rm -it \
 
 ```
 
+#### also some general docker commands:
+- for listing all running containers:
+`docker container list`
+
+- for listing all contianers (running or not)
+`docker container list --all`
+
+- starting a docker container with the name fetched from the list command
+`docker start -ai <container_name>`
+
+#### compiling c code to intel syntax assembly (gas syntax, not nasm)
 `gcc -S -O0 -masm=intel -fno-asynchronous-unwind-tables -fno-ident -fno-tree-ccp -fverbose-asm language/test.c -o language/test.s`
 
 (-fverbose-asm is really helpful)

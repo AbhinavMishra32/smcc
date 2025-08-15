@@ -1,16 +1,14 @@
 section .data
-  fmt db "Result: %d", 10, 0
+  fmt db "This is the result bruv: %d", 10, 0
 
 section .text
   extern printf
   global main
 
 main:
-  mov edi, 3
-  mov esi, 6
-  add edi, esi
+  mov esi, 4234234
+  add esi, 52423
 
-  mov esi, edi
   lea rdi, [rel fmt]
   xor eax, eax
   call printf
