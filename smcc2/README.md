@@ -61,3 +61,15 @@ Symbol table '.symtab' contains 7 entries:
      5: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND printf
      6: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT    2 main
 ```
+
+#### General assembly learnings:
+
+Table 1-7. Examples of x86-64 Instructions Using Various Operand Sizes
+
+| 8-Bit         | 16-Bit        | 32-Bit        | 64-Bit        |
+|---------------|---------------|---------------|---------------|
+| add al,bl     | add ax,bx     | add eax,ebx   | add rax,rbx   |
+| cmp dl,[r15]  | cmp dx,[r15]  | cmp edx,[r15] | cmp rdx,[r15] |
+| mul r10b      | mul r10w      | mul r10d      | mul r10       |
+| or [r8+rdi],al| or [r8+rdi],ax| or [r8+rdi],eax| or [r8+rdi],rax|
+| shl r9b,cl    | shl r9w,cl    | shl r9d,cl    | shl r9,cl     |

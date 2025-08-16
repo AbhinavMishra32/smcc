@@ -1,6 +1,7 @@
 #include <stdio.h>
 
-int main(){
+// This generates xmm (simd avx)
+/*int main(){
   int arr[1000];
   int arr2[1000];
 
@@ -13,4 +14,16 @@ int main(){
 
   return 0;
 }
+*/
 
+int yolo = 12;
+
+int main() {
+  int x = 10;
+  int k = x + 100;
+  int l = 32;
+  int m = 23;
+  int s = yolo + 234;
+  printf("%d", yolo);
+  return 0;
+}
