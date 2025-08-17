@@ -14,25 +14,47 @@ struct Type {
   } fn;
 };
 
-struct Decl {
-  enum Kind { Var, Func, Const } kind;
+struct Symbol {
+  enum Kind { Decl, Var, Func, Const, Void, Bool, i32 } kind;
   std::string name;
   Type *type; // for function its function type; for Var its variable type
   ASTNode *ast;
-
-  // research about mutable
-  // bool isMutable;
   bool isGlobal;
 };
 
-struct Scope {
-  Scope *parent = nullptr;
-  std::unordered_map<std::string, std::vector<Decl *>>
-      buckets; // allow overloading: vector
+using SymbolTable = std::unordered_map<std::string,Symbol>;
+
+class ScopeStack {
+  std::vector<SymbolTable> stack;
+
+  public:
+  void enterScope(){
+    // push empty symtol table, we will add stuff to it when we find decl in scope
+    stack.push_back(SymbolTable{});
+  }
+  void leaveScope(){
+    stack.pop_back();
+  }
+  void declare(const std::string &name, Type *type, Symbol::Kind kind, ASTNode *ast = nullptr, bool isGlobal = false){
+    // adding value Symbol to name key in the top most unorderd_map
+    stack.back()[name] = Symbol{
+      .kind = kind,
+        .name = name,
+        .type = type,
+        .ast = ast,
+        .isGlobal = isGlobal
+    };
+  }
+  Symbol* lookup(const std::string& name) {
+    for(int i = stack.size() - 1; i >= 0; i--) {
+      auto it = stack[i].find(name);
+      if (it != stack[i].end()) {
+        return &it->second; // return value, not key (first)
+      }
+    }
+    return nullptr; // not found
+  }
 };
 
-struct SemInfo {
-  Type *type = nullptr;
-  Decl *binding = nullptr;
-  bool isLValue = false;
-};
+
+
