@@ -21,6 +21,7 @@ std::string ASTNode::toString() {
         case ASTType::BinaryPlus: return "BinaryPlus";
         case ASTType::Identifier: return "Identifier";
         case ASTType::Declaration: return "Declaration";
+        case ASTType::FuncCall: return "FuncCall";
         default: return "UnkownNode";
     }
 }

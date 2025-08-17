@@ -26,6 +26,7 @@ private:
     void advance();
     bool match(TokenType type);
     void expect(TokenType type);
+    Token peek();
 
 };
 

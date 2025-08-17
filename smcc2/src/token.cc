@@ -26,6 +26,7 @@ std::string Token::tokenTypeToString(TokenType type) {
         case TokenType::LBrace: return "LBrace";
         case TokenType::RBrace: return "RBrace";
         case TokenType::Semicolon: return "Semicolon";
+        case TokenType::Comma: return "Comma";
         case TokenType::EoF: return "EoF";
         case TokenType::Unknown: return "Unknown";
         default: return "Unknown";

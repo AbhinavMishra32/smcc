@@ -27,6 +27,10 @@ void Parser::advance(){
     _current = _lexer.nextToken();
 }
 
+Token Parser::peek() {
+  return _lexer.peekToken();
+}
+
 bool Parser::match(TokenType type) {
   if (_current.getType() == type) {
     advance();
@@ -107,6 +111,7 @@ ASTNode* Parser::parseStatement() {
     return nullptr;
 }
 
+
 ASTNode* Parser::parseAssignment(){
     if (_current.getType() == TokenType::Ident) {
         std::string varName = _current.getText();
@@ -133,21 +138,39 @@ ASTNode* Parser::parseAssignment(){
 
 // for Ident, Number
 ASTNode* Parser::parseFactor() {
-    // advance();
-    // std::cout << getCurrent().toString() << std::endl;
-    // std::cout << Token::tokenTypeToString(_current.getType()) << std::endl;
+    if (_current.getType() == TokenType::Ident && _lexer.peekToken().getType() == TokenType::LParan) {
+        std::string funcName = _current.getText();
+        advance(); // consume identifier
+        expect(TokenType::LParan); 
 
-    if (_current.getType() == TokenType::Number) {
-        // std::cout << "Number" << std::endl;
+        ASTNode* callNode = new ASTNode(ASTType::FuncCall, funcName);
+        // Parse argument list (possibly empty)
+        if (_current.getType() != TokenType::RParan) {
+            while (true) {
+                callNode->addChild(std::shared_ptr<ASTNode>(parseExpression()));
+                if (_current.getType() == TokenType::Comma) {
+                    advance();
+                    continue;
+                }
+                break;
+            }
+        }
+        expect(TokenType::RParan);
+        return callNode;
+    }
+    // Number literal
+    else if (_current.getType() == TokenType::Number) {
         std::string value = _current.getText();
         advance();
         return new ASTNode(ASTType::Number, value);
     }
+    // Identifier
     else if (_current.getType() == TokenType::Ident) {
         std::string value = _current.getText();
         advance();
         return new ASTNode(ASTType::Identifier, value);
     }
+    // Parenthesized expression
     else if (_current.getType() == TokenType::LParan) {
         advance();
         auto expr = parseExpression();

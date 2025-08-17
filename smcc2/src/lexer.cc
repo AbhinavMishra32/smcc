@@ -2,6 +2,7 @@
 #include "lexer.hh"
 
 Lexer::Lexer(const std::string &input) : _input(input), _pos(0) {}
+
 Token Lexer::nextToken()
 {
     skipWhitespace();
@@ -52,6 +53,9 @@ Token Lexer::nextToken()
         case ';':
             _pos++;
             return Token(TokenType::Semicolon, ";");
+        case ',':
+            _pos++;
+            return Token(TokenType::Comma, ",");
         case '\0':
             return Token(TokenType::EoF, "");
         default:
@@ -60,6 +64,7 @@ Token Lexer::nextToken()
         }
     }
 }
+
 Token Lexer::peekToken() {
     size_t savedPos = _pos;
     Token token = nextToken();

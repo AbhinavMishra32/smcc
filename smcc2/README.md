@@ -73,3 +73,10 @@ Table 1-7. Examples of x86-64 Instructions Using Various Operand Sizes
 | mul r10b      | mul r10w      | mul r10d      | mul r10       |
 | or [r8+rdi],al| or [r8+rdi],ax| or [r8+rdi],eax| or [r8+rdi],rax|
 | shl r9b,cl    | shl r9w,cl    | shl r9d,cl    | shl r9,cl     |
+
+
+## Semantic Analysis
+We need to make sure even if the program parses without any errors that it does not have semantic errors, meaning:
+- if a constant is being assigned any value
+- redeclaring a variable
+- try to use a variable before its even declared

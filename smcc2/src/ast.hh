@@ -17,7 +17,8 @@ enum class ASTType {
     BinaryDiv,
     Number,
     Identifier,
-    Declaration
+    Declaration,
+    FuncCall
 };
 
 enum class VariableType {
