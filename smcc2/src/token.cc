@@ -1,6 +1,7 @@
 #include "token.hh"
 
-Token::Token(TokenType type, const std::string &text) : _type(type), _text(text) {}
+Token::Token(TokenType type, const std::string &text, int line, int column)
+    : _type(type), _text(text), line(line), column(column) {}
 
 TokenType Token:: getType() {
     return _type;
@@ -34,5 +35,5 @@ std::string Token::tokenTypeToString(TokenType type) {
 }
 
 std::string Token::toString() const {
-    return "Token(" + tokenTypeToString(_type) + ", \"" + _text + "\")";
+    return "Token(" + tokenTypeToString(_type) + ", \"" + _text + "\", " + std::to_string(line) + ":" + std::to_string(column) + ")";
 }

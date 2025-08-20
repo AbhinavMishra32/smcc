@@ -11,9 +11,12 @@ public:
 private:
     std::string _input;
     size_t _pos;
+    int _line;
+    int _col;
+    char advance();
 
     void skipWhitespace();
     std::string readWord();
     std::string readNumber();
-    Token getToken(std::string& word);
+    Token getToken(std::string& word, int startLine, int startCol);
 };

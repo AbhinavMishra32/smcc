@@ -29,14 +29,11 @@ private:
     std::string _text;
 
 public:
-    Token(TokenType type, const std::string &text);
-
+    Token(TokenType type, const std::string &text, int line, int column);
+    int line;
+    int column;
     TokenType getType();
-
     std::string getText();
-
     static std::string tokenTypeToString(TokenType type);
-
-
     std::string toString() const;
 };
