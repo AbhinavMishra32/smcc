@@ -16,9 +16,9 @@ Token Parser::getCurrent() {
 void Parser::expect(TokenType type) {
   if (_current.getType() != type) {
     throw std::runtime_error("Expected token '" +
-                             Token::tokenTypeToString(type) + "' but got " + 
-                             "'" +
-                             Token::tokenTypeToString(_current.getType()) + "[" + _current.getText() + "]" + "'");
+        Token::tokenTypeToString(type) + "' but got " + 
+        "'" +
+        Token::tokenTypeToString(_current.getType()) + "[" + _current.getText() + "]" + "'");
   }
   advance();
 }
@@ -92,7 +92,7 @@ ASTNode* Parser::parseFunction() {
         if (_current.getType() == TokenType::LBrace) {
             auto block = parseBlock();
 
-            ASTNode* functionNode = new ASTNode(ASTType::Function, functionName);
+            ASTNode* functionNode = new ASTNode(ASTType::FuncDecl, functionName);
             functionNode->addChild(std::shared_ptr<ASTNode>(block));
             return functionNode;
             }
@@ -116,7 +116,7 @@ ASTNode* Parser::parseStatement() {
         advance();
         std::string varName = _current.getText();
         expect(TokenType::Ident);
-        ASTNode* declaredVar = new ASTNode(ASTType::Declaration, varName);
+        ASTNode* declaredVar = new ASTNode(ASTType::VarDecl, varName);
         declaredVar->varType = VariableType::Int;
 
         if (_current.getType() == TokenType::Equals) {

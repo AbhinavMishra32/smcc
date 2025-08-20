@@ -12,7 +12,7 @@ std::string ASTNode::toString() {
         case ASTType::Assign: return "Assign";
         case ASTType::Block: return "Block";
         case ASTType::ReturnStmt: return "ReturnStmt";
-        case ASTType::Function: return "Function";
+        case ASTType::FuncDecl: return "FuncDecl";
         case ASTType::Number: return "Number";
         case ASTType::BinaryMul: return "BinaryMultiply";
         case ASTType::BinaryDiv: return "BinaryDiv";
@@ -21,7 +21,7 @@ std::string ASTNode::toString() {
         case ASTType::BinaryMinus: return "BinaryMinus";
         case ASTType::BinaryPlus: return "BinaryPlus";
         case ASTType::Identifier: return "Identifier";
-        case ASTType::Declaration: return "Declaration";
+        case ASTType::VarDecl: return "VarDecl";
         case ASTType::FuncCall: return "FuncCall";
         default: return "UnkownNode";
     }

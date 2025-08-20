@@ -7,7 +7,7 @@
 enum class ASTType {
   Program,
   Assign,
-  Function,
+  FuncDecl,
   ReturnStmt,
   Block,
   UnaryMinus,
@@ -18,7 +18,7 @@ enum class ASTType {
   BinaryDiv,
   Number,
   Identifier,
-  Declaration,
+  VarDecl,
   FuncCall
 };
 
