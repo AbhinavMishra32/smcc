@@ -65,11 +65,14 @@ Token Lexer::nextToken()
     }
 }
 
-Token Lexer::peekToken() {
-    size_t savedPos = _pos;
-    Token token = nextToken();
-    _pos = savedPos;
-    return token;
+Token Lexer::peekToken(int count) {
+  size_t savedPos = _pos;
+  Token token = nextToken();
+  for(int i = 0; i < count; i++) {
+    token = nextToken();
+  }
+  _pos = savedPos;
+  return token;
 }
 
 void Lexer::skipWhitespace()

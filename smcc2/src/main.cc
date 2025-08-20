@@ -39,8 +39,9 @@ int main(int argc, char* argv[]){
 
     Parser parser(lexer);
     
-    // ASTNode* ast = parser.parseFactor();
-    ASTNode* ast = parser.parseFunction();
+    // std::cout << parser.getCurrent().getText() << std::endl;
+    // std::cout << lexer.peekToken().getText() << std::endl;
+    ASTNode* ast = parser.parse();
     parser.printAST(*ast, 0);
 
     return 0;

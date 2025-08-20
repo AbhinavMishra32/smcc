@@ -33,7 +33,7 @@ Token Parser::peek() {
 
 bool Parser::match(TokenType type) {
   if (_current.getType() == type) {
-    advance();
+    // advance();
     return true;
   }
   return false;
@@ -49,6 +49,32 @@ ASTNode* Parser::parseBlock() {
     }
     expect(TokenType::RBrace);
     return blockNode;
+}
+
+ASTNode* Parser::parse(){
+  ASTNode* programNode = new ASTNode(ASTType::Program);
+  while(_current.getType() != TokenType::EoF) {
+    // because just seeing int doesnt tell us if its var decl or function decl
+    // auto funcReturnType = _current.getType();
+    // advance();
+    // auto funcName = _current.getText();
+    // if (funcReturnType == TokenType::Int && _current.getType() == TokenType::Equals) {
+    // }
+    
+    auto t1 = _lexer.peekToken().getType();
+    auto t2 = _lexer.peekToken(1).getType();
+
+    if(match(TokenType::Int) && t1 == TokenType::Ident && t2 == TokenType::LParan) {
+      auto functionNode = parseFunction();
+      programNode->addChild(std::shared_ptr<ASTNode>(functionNode));
+      continue;
+    }
+
+    auto statementNode = parseStatement();
+    programNode->addChild(std::shared_ptr<ASTNode>(statementNode));
+  }
+
+  return programNode;
 }
 
 ASTNode* Parser::parseFunction() {

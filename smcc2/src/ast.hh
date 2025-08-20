@@ -5,20 +5,21 @@
 #include <optional>
 
 enum class ASTType {
-    Assign,
-    Function,
-    ReturnStmt,
-    Block,
-    UnaryMinus,
-    UnaryPlus,
-    BinaryMinus,
-    BinaryPlus,
-    BinaryMul,
-    BinaryDiv,
-    Number,
-    Identifier,
-    Declaration,
-    FuncCall
+  Program,
+  Assign,
+  Function,
+  ReturnStmt,
+  Block,
+  UnaryMinus,
+  UnaryPlus,
+  BinaryMinus,
+  BinaryPlus,
+  BinaryMul,
+  BinaryDiv,
+  Number,
+  Identifier,
+  Declaration,
+  FuncCall
 };
 
 enum class VariableType {

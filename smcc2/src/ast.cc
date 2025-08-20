@@ -8,6 +8,7 @@ void ASTNode::addChild(std::shared_ptr<ASTNode> child){
 
 std::string ASTNode::toString() {
     switch (type) {
+        case ASTType::Program: return "Program";
         case ASTType::Assign: return "Assign";
         case ASTType::Block: return "Block";
         case ASTType::ReturnStmt: return "ReturnStmt";

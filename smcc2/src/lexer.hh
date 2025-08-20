@@ -6,7 +6,7 @@ class Lexer {
 public:
     Lexer(const std::string& input);
     Token nextToken();
-    Token peekToken();
+    Token peekToken(int count = 0);
 
 private:
     std::string _input;
