@@ -18,6 +18,7 @@ public:
     ASTNode* parseTerm();
     ASTNode* parseAssignment();
     void printAST(ASTNode& ast, int indent = 0);
+    void error(const std::string& message);
 
 private:
     Lexer& _lexer;

@@ -1,8 +1,8 @@
 #include "parser.hh"
 #include <iostream>
 
-void error(const std::string& message) {
-    std::cerr << "Parser error: " << message << std::endl;
+void Parser::error(const std::string& message) {
+    std::cerr << "Parser error: " << message << "[" << _current.line << ":" << _current.column << "]" << std::endl;
     exit(1);
 }
 
@@ -18,7 +18,7 @@ void Parser::expect(TokenType type) {
     throw std::runtime_error("Expected token '" +
         Token::tokenTypeToString(type) + "' but got " + 
         "'" +
-        Token::tokenTypeToString(_current.getType()) + "[" + _current.getText() + "]" + "'");
+        Token::tokenTypeToString(_current.getType()) + "[" + _current.getText() + "]" + "'" + "at " + "[" + std::to_string(_current.line) + ":" + std::to_string(_current.column) + "]");
   }
   advance();
 }
